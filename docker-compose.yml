@@ -1,0 +1,36 @@
+version: '2'
+
+services:
+  v2ray:
+    image: cmdhim/rico:v2ray        #镜像
+    container_name: SMT     #容器名
+    restart: always     #当docker重启时,容器自动启动
+    network_mode: "host"        #docker网络配置请勿更改
+    extra_hosts:
+      auth.rico93.com: 127.0.0.1        #屏蔽验证服务器
+    environment:
+      sspanel_url: "https://www.freecloud.pw"     #前端域名
+      key: "sspankey"     #mu_key
+      docker: "true"
+      speedtest: 6      #节点测速时间，单位：时
+      node_id: 68       #节点ID
+      api_port: 5109        #api端口，不能与其他docker重复
+      downWithPanel: 1
+      LDNS: "1.1.1.1"       #流媒体DNS配置，填写解锁dns
+      TZ: "Asia/Shanghai"       #时区设定
+      MYSQLHOST: "https://bing.com"     #数据库地址
+      MYSQLDBNAME: "demo_dbname"        #数据库名
+      MYSQLUSR: "demo_user"     #数据库用户名
+      MYSQLPASSWD: "demo_dbpassword"        #数据库密码
+      MYSQLPORT: 3306       #数据库端口
+      PANELTYPE: 0
+      usemysql: 0       #“0”为api对接，“1”为数据库对接
+      CF_Key: "bbbbbbbbbbbbbbbbbb"
+      CF_Email: "getbackcn@gmail.com"
+      #DDNS和自动TLS会用到的，需要cf域名
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
